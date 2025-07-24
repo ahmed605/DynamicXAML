@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>net9.0-windows10.0.26100.0</TargetFramework>
+		<TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+		<Nullable>enable</Nullable>
+		<UseUwp>true</UseUwp>
+		<DefaultLanguage>en-US</DefaultLanguage>
+		<IsAotCompatible>true</IsAotCompatible>
+		<DisableRuntimeMarshalling>true</DisableRuntimeMarshalling>
+
+		<!-- the new stuff needed -->
+		<TargetName>DynamicClassLibrary</TargetName>
+		<DisableEmbeddedXbf>false</DisableEmbeddedXbf>
+		<XamlResourceMapName>$(TargetName)<!-- <- value of PriIndexName --></XamlResourceMapName>
+
+	</PropertyGroup>
+</Project>
