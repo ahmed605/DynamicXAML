@@ -1,8 +1,0 @@
-namespace DynamicRuntimeComponent
-{
-    [default_interface]
-    runtimeclass DynamicPage : Windows.UI.Xaml.Controls.Page
-    {
-        DynamicPage();
-    }
-}

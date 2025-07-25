@@ -1,7 +1,0 @@
-{
-  "profiles": {
-    "DynamicXaml": {
-      "commandName": "MsixPackage"
-    }
-  }
-}

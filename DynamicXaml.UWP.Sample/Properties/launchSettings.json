@@ -1,0 +1,7 @@
+{
+  "profiles": {
+    "DynamicXaml.UWP.Sample": {
+      "commandName": "MsixPackage"
+    }
+  }
+}
