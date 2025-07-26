@@ -1,7 +1,8 @@
 {
   "profiles": {
     "DynamicXaml.UWP.Sample": {
-      "commandName": "MsixPackage"
+      "commandName": "MsixPackage",
+      "nativeDebugging": true
     }
   }
 }

@@ -9,9 +9,7 @@
 		<DisableRuntimeMarshalling>true</DisableRuntimeMarshalling>
 
 		<!-- the new stuff needed -->
-		<TargetName>DynamicClassLibrary.UWP</TargetName>
 		<DisableEmbeddedXbf>false</DisableEmbeddedXbf>
-		<XamlResourceMapName>$(TargetName)<!-- <- value of PriIndexName --></XamlResourceMapName>
 
 	</PropertyGroup>
 </Project>

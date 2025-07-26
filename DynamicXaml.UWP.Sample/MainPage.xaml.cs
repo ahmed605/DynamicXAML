@@ -77,8 +77,7 @@ namespace DynamicXaml.UWP.Sample
                         pri = await pri.CopyAsync(appdata, pri.Name, NameCollisionOption.ReplaceExisting);
                         dll = await dll.CopyAsync(appdata, dll.Name, NameCollisionOption.ReplaceExisting);
 
-                        var manager = ResourceManager.Current;
-                        manager.LoadPriFiles([pri]);
+                        DynamicLoader.LoadPri(pri);
 
                         UIElement element = null;
                         if (NativeLibrary.TryLoad(dll.Path, out nint handle) && NativeLibrary.TryGetExport(handle, "DllGetActivationFactory", out nint pDllGetActivationFactory))
