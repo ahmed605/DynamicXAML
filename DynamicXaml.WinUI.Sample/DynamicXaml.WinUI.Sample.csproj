@@ -13,10 +13,6 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <PropertyGroup>
-	<CsWinRTIncludes>DynamicXaml.WinUI;</CsWinRTIncludes>
-  </PropertyGroup>
-
   <ItemGroup>
     <Content Include="Assets\SplashScreen.scale-200.png" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
@@ -45,9 +41,8 @@
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.7.250606001" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DynamicXaml.WinUI\DynamicXaml.WinUI.vcxproj"/>
+    <ProjectReference Include="..\DynamicXaml.WinUI.Projection\DynamicXaml.WinUI.Projection.csproj" />
   </ItemGroup>
-
   <!--
     Defining the "HasPackageAndPublishMenuAddedByProject" property here allows the Solution
     Explorer "Package and Publish" context menu entry to be enabled for this project even if
