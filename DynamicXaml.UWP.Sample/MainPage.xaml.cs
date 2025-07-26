@@ -1,14 +1,9 @@
 ﻿#pragma warning disable CS9123 // The '&' operator should not be used on parameters or local variables in async methods.
 
-using ABI.WinRT.Interop;
 using System;
-using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using Windows.ApplicationModel.Resources.Core;
 using Windows.Storage;
 using Windows.Storage.Pickers;
 using Windows.UI.Popups;
