@@ -1,4 +1,6 @@
-﻿using ABI.WinRT.Interop;
+﻿#pragma warning disable CS9123 // The '&' operator should not be used on parameters or local variables in async methods.
+
+using ABI.WinRT.Interop;
 using System;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
@@ -84,13 +86,18 @@ namespace DynamicXaml.UWP.Sample
                         {
                             unsafe
                             {
-                                // Error checking omitted
                                 var DllGetActivationFactory = (delegate* unmanaged[Stdcall]<void*, void**, int>)pDllGetActivationFactory;
+
                                 void* factoryPtr = default;
-                                DllGetActivationFactory((void*)MarshalString.FromManaged(name), &factoryPtr);
-                                void* obj = default;
-                                ((delegate* unmanaged[Stdcall]<void*, void**, int>)(*(void**)((nint)(*(void**)factoryPtr) + 6 * sizeof(void*))))(factoryPtr, &obj);
-                                element = UIElement.FromAbi((nint)obj);
+                                if (DllGetActivationFactory((void*)MarshalString.FromManaged(name), &factoryPtr) >= 0)
+                                {
+                                    void* obj = default;
+                                    var vtftbl = *(void***)factoryPtr;
+                                    var ActivateInstance = (delegate* unmanaged[Stdcall]<void*, void**, int>)vtftbl[6];
+
+                                    if (ActivateInstance(factoryPtr, &obj) >= 0)
+                                        element = UIElement.FromAbi((nint)obj);
+                                }
                             }
                         }
                         else
