@@ -31,7 +31,7 @@ If the library is accessing its resources via `ms-appx:///` URIs, these should b
 <ResourceDictionary Source="ms-appx://My.Dynamic.Lib/My.Dynamic.Lib/Themes/Generic.xaml" />
 ```
 
-This limitation exists because `Windows.UI.Xaml` (aka **UWP XAML**) uses a private MRM API to load these resources and **DynamicXaml** aims to avoid using or hooking any private APIs, this limitation however does **not** exist in **WinUI 3** since it uses a public API (the C++ MRT Core API) for loading these resources and **DynamicXaml** hooks that API and makes the required redirections for it to work.
+This limitation exists because `Windows.UI.Xaml` (aka **UWP XAML**) uses a private MRM API to load these resources and **DynamicXaml** aims to avoid using or hooking any private APIs, this limitation however does **not** exist in **WinUI 3** since it uses a public API (the WinRT MRT Core API) for loading these resources and **DynamicXaml** hooks that API and makes the required redirections for it to work.
 
 ### On application side
 
