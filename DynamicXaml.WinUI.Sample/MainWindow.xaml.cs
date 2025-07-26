@@ -51,13 +51,13 @@ namespace DynamicXaml.WinUI.Sample
                     var box = new TextBox
                     {
                         Text = name,
-                        PlaceholderText = "UIElement fully class qualified name (e.g. MyLibrary.Controls.MyPage)",
+                        PlaceholderText = "UIElement fully qualified class name (e.g. MyLibrary.Controls.MyPage)",
                         Margin = new(15)
                     };
 
                     var dialog = new ContentDialog
                     {
-                        Title = "Enter UIElement fully class qualified name to load",
+                        Title = "Enter UIElement fully qualified class name to load",
                         Content = box,
                         PrimaryButtonText = "Load",
                         IsPrimaryButtonEnabled = true,
