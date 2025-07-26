@@ -21,9 +21,6 @@
     <DesktopCompatible>true</DesktopCompatible>
     <UseWinUI>true</UseWinUI>
   </PropertyGroup>
-  <!--Target Name="RenameWinmd" AfterTargets="Build">
-    <Move SourceFiles="$(OutDir)DynamicXaml.winmd" DestinationFiles="$(OutDir)DynamicXaml.WinUI.winmd"/>
-  </Target-->
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
