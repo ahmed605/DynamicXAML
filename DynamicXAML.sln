@@ -32,6 +32,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{8EC462FD-D
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DynamicXaml.Shared", "DynamicXaml.Shared\DynamicXaml.Shared.vcxitems", "{BF648035-156D-420C-84CA-6C824E0DF760}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|ARM = Debug|ARM
@@ -236,5 +238,9 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {139747EA-CB7C-4342-A359-9E2A00165216}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		DynamicXaml.Shared\DynamicXaml.Shared.vcxitems*{51628a00-dab4-4fb3-a726-1a800cedc76d}*SharedItemsImports = 4
+		DynamicXaml.Shared\DynamicXaml.Shared.vcxitems*{bf648035-156d-420c-84ca-6c824e0df760}*SharedItemsImports = 9
 	EndGlobalSection
 EndGlobal
