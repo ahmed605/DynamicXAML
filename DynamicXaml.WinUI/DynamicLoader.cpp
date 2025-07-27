@@ -57,18 +57,10 @@ namespace winrt::DynamicXaml::WinUI::implementation
 		void* pCandidate = nullptr;
         if (SUCCEEDED(hr = s_TryGetValueWithContext(pThis, resource, pContext, &pCandidate)) && pCandidate == nullptr)
         {
-            winrt::hstring resourceName;
-			winrt::copy_from_abi(resourceName, resource);
-            ResourceContext context = nullptr;
-		    winrt::copy_from_abi(context, pContext);
-
             for (const auto& map : s_resourceMaps)
             {
-                if (auto candidate = map.TryGetValue(resourceName, context))
-                {
-					winrt::copy_to_abi(candidate, pCandidate);
-					break;
-                }
+                if (SUCCEEDED(hr = s_TryGetValueWithContext(winrt::get_abi(map), resource, pContext, &pCandidate)) && pCandidate)
+                    break;
             }
         }
 
