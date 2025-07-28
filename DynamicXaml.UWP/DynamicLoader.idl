@@ -1,7 +1,6 @@
 namespace DynamicXaml.UWP
 {
-    [default_interface]
-    runtimeclass DynamicLoader
+    static runtimeclass DynamicLoader
     {
         [static_name("IDynamicLoaderStatics", 306A8DD6-C919-4D7A-80A7-2CD89B1A43BB)]
         {

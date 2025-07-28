@@ -14,7 +14,7 @@ using namespace Windows::ApplicationModel::Resources::Core;
 
 namespace winrt::DynamicXaml::UWP::implementation
 {
-    struct DynamicLoader : DynamicLoaderT<DynamicLoader>
+    struct DynamicLoader
     {
     private:
 		static bool s_initialized;

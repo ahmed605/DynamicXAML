@@ -1,7 +1,6 @@
 namespace DynamicXaml.WinUI
 {
-    [default_interface]
-    runtimeclass DynamicLoader
+    static runtimeclass DynamicLoader
     {
         [static_name("IDynamicLoaderStatics", 8D73FB40-69B1-41E4-8EE7-905C4EEA8FB1)]
         {
