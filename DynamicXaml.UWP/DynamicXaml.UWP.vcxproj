@@ -180,6 +180,14 @@
     <None Include="packages.config" />
     <None Include="PropertySheet.props" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Update="C:\Users\Ahmed\source\repos\DynamicXAML\DynamicXaml.Shared\DynamicHelpers.h">
+      <FileType>Document</FileType>
+    </ClInclude>
+    <ClInclude Update="C:\Users\Ahmed\source\repos\DynamicXAML\DynamicXaml.Shared\DynamicHelpersh">
+      <FileType>Document</FileType>
+    </ClInclude>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="..\packages\Microsoft.Windows.CppWinRT.2.0.220531.1\build\native\Microsoft.Windows.CppWinRT.targets" Condition="Exists('..\packages\Microsoft.Windows.CppWinRT.2.0.220531.1\build\native\Microsoft.Windows.CppWinRT.targets')" />

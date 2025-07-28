@@ -7,11 +7,14 @@
 #include <Windows.h>
 #include <detours/detours.h>
 
+#include <DynamicHelpers.h>
+
 namespace winrt::DynamicXaml::WinUI::implementation
 {
 	bool DynamicLoader::s_initialized = false;
 	std::vector<ResourceMap> DynamicLoader::s_resourceMaps;
     decltype(&DynamicLoader::TryGetValueWithContextHook) s_TryGetValueWithContext = nullptr;
+    decltype(&DynamicLoader::TryGetSubtreeHook) s_TryGetSubtree = nullptr;
 
     bool implementation::DynamicLoader::TryLoadPri(hstring const& priFilePath)
     {
@@ -72,6 +75,25 @@ namespace winrt::DynamicXaml::WinUI::implementation
 		return hr;
     }
 
+    HRESULT WINAPI DynamicLoader::TryGetSubtreeHook(void* pThis, HSTRING reference, void** ppResMap)
+    {
+		HRESULT hr = S_OK;
+
+        winrt::hstring refStr;
+        winrt::copy_from_abi(refStr, reference);
+
+        if (SUCCEEDED(hr = s_TryGetSubtree(pThis, reference, ppResMap)) && ppResMap && !*ppResMap && IsWinUICallee() && refStr != L"Files")
+        {
+            for (const auto& map : s_resourceMaps)
+            {
+                if (SUCCEEDED(hr = s_TryGetSubtree(winrt::get_abi(map), reference, ppResMap)) && *ppResMap)
+                    break;
+            }
+		}
+
+        return hr;
+    }
+
     bool DynamicLoader::EnsureInitialized()
     {
         if (!s_initialized)
@@ -82,10 +104,12 @@ namespace winrt::DynamicXaml::WinUI::implementation
                 auto map = manager.MainResourceMap();
                 auto vtftbl = *(void***)winrt::get_abi(map);
                 s_TryGetValueWithContext = (decltype(s_TryGetValueWithContext))vtftbl[14];
+                s_TryGetSubtree = (decltype(s_TryGetSubtree))vtftbl[8];
 
                 DetourTransactionBegin();
                 DetourUpdateThread(GetCurrentThread());
                 DetourAttach(&(PVOID&)s_TryGetValueWithContext, DynamicLoader::TryGetValueWithContextHook);
+                DetourAttach(&(PVOID&)s_TryGetSubtree, DynamicLoader::TryGetSubtreeHook);
                 s_initialized = DetourTransactionCommit() == NO_ERROR;
 			} catch (...) { }
         }

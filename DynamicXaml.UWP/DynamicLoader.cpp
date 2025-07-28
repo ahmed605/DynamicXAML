@@ -7,6 +7,8 @@
 #include <Windows.h>
 #include <detours/detours.h>
 
+#include <DynamicHelpers.h>
+
 namespace winrt::DynamicXaml::UWP::implementation
 {
     bool DynamicLoader::s_initialized = false;
@@ -15,6 +17,7 @@ namespace winrt::DynamicXaml::UWP::implementation
 
     decltype(&DynamicLoader::LoadComponentWithResourceLocationHook) s_LoadComponentWithResourceLocation = nullptr;
     decltype(&DynamicLoader::GetNamedResourceHook) s_GetNamedResource = nullptr;
+    decltype(&DynamicLoader::GetSubtreeHook) s_GetSubtree = nullptr;
 
     bool DynamicLoader::EnableUnsafeHooks()
     {
@@ -48,7 +51,7 @@ namespace winrt::DynamicXaml::UWP::implementation
             awarc::IMrtResourceMap* resourceMap;
             awarc::IMrtResourceMap* filesResourceMap;
             winrt::check_hresult(resourceManager->GetMainResourceMap(IID_PPV_ARGS(&resourceMap)));
-            winrt::check_hresult(resourceMap->GetSubtree(L"Files", &filesResourceMap));
+            winrt::check_hresult(s_GetSubtree(resourceMap, L"Files", &filesResourceMap));
             s_resourceMaps.emplace(resourceMap, filesResourceMap);
         }
     }
@@ -95,6 +98,22 @@ namespace winrt::DynamicXaml::UWP::implementation
 		return hr;
     }
 
+    HRESULT WINAPI DynamicLoader::GetSubtreeHook(void* pThis, LPCWSTR name, awarc::IMrtResourceMap** ppSubtree)
+    {
+        HRESULT hr = S_OK;
+
+        if (FAILED(hr = s_GetSubtree(pThis, name, ppSubtree)) && IsWindowsXamlCallee() && std::wstring_view(name) != L"Files")
+        {
+            for (const auto& pair : s_resourceMaps)
+            {
+                if (SUCCEEDED(hr = s_GetSubtree(pair.first, name, ppSubtree)))
+                    break;
+            }
+        }
+
+        return hr;
+    }
+
     bool DynamicLoader::EnsureInitialized()
     {
         if (!s_initialized)
@@ -111,10 +130,12 @@ namespace winrt::DynamicXaml::UWP::implementation
                         {
 							auto vftbl = *(void***)resourceMap.get();
                             s_GetNamedResource = (decltype(s_GetNamedResource))vftbl[11];
+                            s_GetSubtree = (decltype(s_GetSubtree))vftbl[4];
 
                             DetourTransactionBegin();
                             DetourUpdateThread(GetCurrentThread());
                             DetourAttach(&(PVOID&)s_GetNamedResource, DynamicLoader::GetNamedResourceHook);
+                            DetourAttach(&(PVOID&)s_GetSubtree, DynamicLoader::GetSubtreeHook);
                             s_initialized = DetourTransactionCommit() == NO_ERROR;
 						}
                     }

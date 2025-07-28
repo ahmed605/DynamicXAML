@@ -8,7 +8,8 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
-        <Button Content="Hello from managed world!" HorizontalAlignment="Center" VerticalAlignment="Center" Click="Button_Click"/>
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Button Content="Hello from managed world!" Click="Button_Click" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <TextBlock x:Uid="DynamicLocalizedBlock" FontFamily="Segoe UI" FontStyle="Italic" FontWeight="SemiLight" Margin="0,40,0,0" HorizontalAlignment="Center" VerticalAlignment="Top"/>
     </Grid>
 </Page>

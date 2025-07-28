@@ -17,6 +17,7 @@ namespace winrt::DynamicXaml::WinUI::implementation
 
     public:
         static HRESULT WINAPI TryGetValueWithContextHook(void* pThis, HSTRING resource, void* pContext, void** ppCandidate);
+        static HRESULT WINAPI TryGetSubtreeHook(void* pThis, HSTRING reference, void** ppResMap);
 
     public:
         DynamicLoader() = default;

@@ -26,6 +26,7 @@ namespace winrt::DynamicXaml::UWP::implementation
     public:
         static HRESULT WINAPI LoadComponentWithResourceLocationHook(void* pThis, IInspectable* pComponent, void* resourceLocator, ComponentResourceLocation componentResourceLocation);
         static HRESULT WINAPI GetNamedResourceHook(void* pThis, LPCWSTR unk1, const GUID& iid, void** ppv);
+        static HRESULT WINAPI GetSubtreeHook(void* pThis, LPCWSTR name, awarc::IMrtResourceMap** ppSubtree);
 
     public:
         DynamicLoader() = default;
