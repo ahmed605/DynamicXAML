@@ -7,7 +7,7 @@ using namespace Microsoft::Windows::ApplicationModel::Resources;
 
 namespace winrt::DynamicXaml::WinUI::implementation
 {
-    struct DynamicLoader : DynamicLoaderT<DynamicLoader>
+    struct DynamicLoader
     {
     private:
 		static bool s_initialized;
