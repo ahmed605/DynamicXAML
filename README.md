@@ -34,7 +34,12 @@ If the library is **manually** accessing its resources via `ms-appx:///` URIs, t
 <ResourceDictionary Source="ms-appx://My.Dynamic.Lib/My.Dynamic.Lib/Themes/Generic.xaml" />
 ```
 
-This limitation exists because `Windows.UI.Xaml` (aka **UWP XAML**) uses a private MRM API to load these resources and **DynamicXaml** aims to avoid using or hooking any private APIs, this limitation however does **NOT** exist in **WinUI 3** since it uses a public API (the WinRT MRT Core API) for loading these resources and **DynamicXaml** hooks that API and makes the required redirections for it to work.
+This limitation exists because `Windows.UI.Xaml` (aka **UWP XAML**) uses a private MRM API to load these resources and **DynamicXaml** aims to avoid using or hooking any private APIs by default, this limitation however does **NOT** exist in **WinUI 3** since it uses a public API (the WinRT MRT Core API) for loading these resources and **DynamicXaml** hooks that API and makes the required redirections for it to work.
+
+However the library includes an opt-in feature to automatically handle and redirect these URIs at runtime without manual edits, this feature can be enabled by setting the `DynamicLoader.EnableUnsafeHooks` property to `true` **before** loading any PRI files.
+
+> [!WARNING]
+> Enabling this feature (**EnableUnsafeHooks**) will cause the library to use and hook private APIs, and despite these private APIs never changed before, it's still not 100% guaranteed that this will stay the same in the future, which may lead to unexpected behavior or crashes if the private APIs change in future Windows versions, use it at your own risk.
 
 ### On application side
 
