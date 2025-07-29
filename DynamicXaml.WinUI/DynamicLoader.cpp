@@ -9,6 +9,8 @@
 
 #include <DynamicHelpers.h>
 
+namespace warc = winrt::Windows::ApplicationModel::Resources::Core;
+
 namespace winrt::DynamicXaml::WinUI::implementation
 {
 	bool DynamicLoader::s_initialized = false;
@@ -24,6 +26,19 @@ namespace winrt::DynamicXaml::WinUI::implementation
             {
                 ResourceManager resourceManager{ priFilePath };
                 s_resourceMaps.push_back(resourceManager.MainResourceMap());
+
+                if (auto task = winrt::Windows::Storage::StorageFile::GetFileFromPathAsync(priFilePath))
+                {
+                    task.Completed([](auto const& asyncInfo, auto const&)
+                    {
+                        try
+                        {
+                            auto file = asyncInfo.GetResults();
+                            warc::ResourceManager::Current().LoadPriFiles({ file });
+                        } catch (...) { }
+                    });
+                }
+
                 return true;
             } catch (...) { }
         }

@@ -10,4 +10,5 @@
 #include <winrt/Windows.Foundation.Collections.h>
 #include <winrt/Windows.Storage.h>
 #include <winrt/Microsoft.Windows.ApplicationModel.Resources.h>
+#include <winrt/Windows.ApplicationModel.Resources.Core.h>
 #include <wil/cppwinrt_helpers.h>
