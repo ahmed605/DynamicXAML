@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>DynamicXaml.WinUI</id>
+    <version>1.0.0</version>
+    <title>DynamicXaml.WinUI</title>
+    <authors>Ahmed605</authors>
+    <owners>Ahmed605,Ahmed Walid</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <!--<icon>icon.png</icon>-->
+    <projectUrl>https://github.com/ahmed605/DynamicXAML</projectUrl>
+    <repository type="git" url="https://github.com/ahmed605/DynamicXAML.git"/>
+    <description>Dynamically loading XAML libraries and resources for WinUI 3 applications.</description>
+    <releaseNotes>Initial release.</releaseNotes>
+    <tags>DynamicXaml Dynamic XAML Resources WinRT WinUI WinUI3 Windows App SDK WindowsAppSDK WASDK</tags>
+    <readme>docs\README.md</readme>
+    <dependencies>
+      <group targetFramework="net8.0-windows10.0.19041.0" >
+        <dependency id="Microsoft.WindowsAppSDK" version="1.6.241114003" />
+      </group>
+      <group targetFramework="native" />
+    </dependencies>
+  </metadata>
+  
+  <files>
+      <file src="..\README.md" target="docs\" />
+      
+      <file target="build\native\DynamicXaml.WinUI.targets"                          src="DynamicXaml.WinUI.Native.targets" />
+      <file target="build\net8.0-windows10.0.19041.0\DynamicXaml.WinUI.targets"      src="DynamicXaml.WinUI.Managed.targets" />
+
+      <file target="lib\native\DynamicXaml.WinUI.winmd"                              src="..\x64\Release\DynamicXaml.WinUI\DynamicXaml.WinUI.winmd" />
+      <file target="lib\net8.0-windows10.0.19041.0\DynamicXaml.WinUI.Projection.dll" src="..\DynamicXaml.WinUI.Projection\bin\Release\net8.0-windows10.0.19041.0\DynamicXaml.WinUI.Projection.dll" />
+
+      <file target="runtimes\win-x86\native\DynamicXaml.WinUI.dll"                   src="..\Release\DynamicXaml.WinUI\DynamicXaml.WinUI.dll" />
+      <file target="runtimes\win-x64\native\DynamicXaml.WinUI.dll"                   src="..\x64\Release\DynamicXaml.WinUI\DynamicXaml.WinUI.dll" />
+      <file target="runtimes\win-arm64\native\DynamicXaml.WinUI.dll"                 src="..\ARM64\Release\DynamicXaml.WinUI\DynamicXaml.WinUI.dll" />
+  </files>
+</package>

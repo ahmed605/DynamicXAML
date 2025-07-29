@@ -4,9 +4,7 @@
 #include "DynamicLoader.g.cpp"
 #endif
 
-#include <Windows.h>
 #include <detours/detours.h>
-
 #include <DynamicHelpers.h>
 
 namespace winrt::DynamicXaml::UWP::implementation

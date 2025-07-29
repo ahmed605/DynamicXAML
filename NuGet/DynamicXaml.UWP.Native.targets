@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <DynamicXamlPlatform Condition="'$(Platform)' == 'Win32'">x86</DynamicXamlPlatform>
+    <DynamicXamlPlatform Condition="'$(Platform)' != 'Win32'">$(Platform)</DynamicXamlPlatform>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="$(MSBuildThisFileDirectory)..\..\lib\uap10.0\DynamicXaml.UWP.winmd">
+      <Implementation>DynamicXaml.UWP.dll</Implementation>
+    </Reference>
+    <ReferenceCopyLocalPaths Include="$(MSBuildThisFileDirectory)..\..\runtimes\win-$(DynamicXamlPlatform)\native\DynamicXaml.UWP.dll" />
+  </ItemGroup>
+
+</Project>

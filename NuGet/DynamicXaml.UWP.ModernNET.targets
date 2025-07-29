@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <DynamicXamlWinMDPath>$(MSBuildThisFileDirectory)..\..\lib\uap10.0\DynamicXaml.UWP.winmd</DynamicXamlWinMDPath>
+    <DynamicXamlWinMDImplementationDllName>DynamicXaml.UWP.dll</DynamicXamlWinMDImplementationDllName>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <DynamicXamlPlatform Condition="$(RuntimeIdentifier.EndsWith('-x64'))">x64</DynamicXamlPlatform>
+    <DynamicXamlPlatform Condition="$(RuntimeIdentifier.EndsWith('-x86'))">x86</DynamicXamlPlatform>
+    <DynamicXamlPlatform Condition="$(RuntimeIdentifier.EndsWith('-arm64'))">arm64</DynamicXamlPlatform>
+    <DynamicXamlPlatform Condition="$(RuntimeIdentifier.EndsWith('-arm'))">arm</DynamicXamlPlatform>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(DynamicXamlPlatform)' == ''">
+    <DynamicXamlPlatform Condition="'$(Platform)' == 'Win32'">x86</DynamicXamlPlatform>
+    <DynamicXamlPlatform Condition="'$(Platform)' != 'Win32'">$(Platform)</DynamicXamlPlatform>
+    <DynamicXamlPlatform Condition="'$(Platform)' == 'AnyCPU'"></DynamicXamlPlatform>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <DynamicXamlWarnNoPlatform Condition="'$(DynamicXamlWarnNoPlatform)' == ''">true</DynamicXamlWarnNoPlatform>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <WindowsMetadataReference Include="$(DynamicXamlWinMDPath)" Implementation="$(DynamicXamlWinMDImplementationDllName)" />
+  </ItemGroup>
+
+  <Target Name="DynamicXamlWarnNoPlatform" BeforeTargets="BeforeBuild" Condition="'$(DynamicXamlPlatform)' == '' and '$(DynamicXamlWarnNoPlatform)' == 'true'">
+    <Warning
+        Code="DYXML0001"
+        Text="'DynamicXaml.UWP.dll' cannot be referenced correctly, because the project is being built as 'AnyCPU'. Please specify a specific platform (eg. 'x64'), publish with a RID (runtime identifier, eg. 'win-x64'), or set 'DynamicXamlWarnNoPlatform' to suppress this error (note: you'll need to manually handle referencing DynamicXaml.UWP.dll in that case)." />
+  </Target>
+
+</Project>

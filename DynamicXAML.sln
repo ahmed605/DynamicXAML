@@ -34,6 +34,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{8EC462FD-D
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DynamicXaml.Shared", "DynamicXaml.Shared\DynamicXaml.Shared.vcxitems", "{BF648035-156D-420C-84CA-6C824E0DF760}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuGet", "NuGet", "{3D230E9A-A48D-4AC3-A433-CF3DDFA8CF65}"
+	ProjectSection(SolutionItems) = preProject
+		NuGet\DynamicXaml.UWP.ModernNET.targets = NuGet\DynamicXaml.UWP.ModernNET.targets
+		NuGet\DynamicXaml.UWP.Native.targets = NuGet\DynamicXaml.UWP.Native.targets
+		NuGet\DynamicXaml.UWP.nuspec = NuGet\DynamicXaml.UWP.nuspec
+		NuGet\DynamicXaml.WinUI.Managed.targets = NuGet\DynamicXaml.WinUI.Managed.targets
+		NuGet\DynamicXaml.WinUI.Native.targets = NuGet\DynamicXaml.WinUI.Native.targets
+		NuGet\DynamicXaml.WinUI.nuspec = NuGet\DynamicXaml.WinUI.nuspec
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|ARM = Debug|ARM
