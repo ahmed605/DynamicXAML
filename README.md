@@ -8,11 +8,11 @@ With **DynamicXaml** you can dynamically load external XAML libraries at runtime
 
 #### UWP version
 
-![UWP](https://img.shields.io/nuget/v/DynamicXaml.UWP?style=for-the-badge&label=DynamicXaml.UWP&color=blue&link=https%3A%2F%2Fwww.nuget.org%2Fpackages%2FDynamicXaml.UWP%2F)
+[![UWP](https://img.shields.io/nuget/v/DynamicXaml.UWP?style=for-the-badge&label=DynamicXaml.UWP&color=blue&link=https%3A%2F%2Fwww.nuget.org%2Fpackages%2FDynamicXaml.UWP%2F)](https://www.nuget.org/packages/DynamicXaml.UWP/)
 
 #### WinUI 3 version
 
-![WinUI](https://img.shields.io/nuget/v/DynamicXaml.WinUI?style=for-the-badge&label=DynamicXaml.WinUI&color=pink&link=https%3A%2F%2Fwww.nuget.org%2Fpackages%2FDynamicXaml.WinUI%2F)
+[![WinUI](https://img.shields.io/nuget/v/DynamicXaml.WinUI?style=for-the-badge&label=DynamicXaml.WinUI&color=pink&link=https%3A%2F%2Fwww.nuget.org%2Fpackages%2FDynamicXaml.WinUI%2F)](https://www.nuget.org/packages/DynamicXaml.WinUI/)
 
 ## Usage
 
