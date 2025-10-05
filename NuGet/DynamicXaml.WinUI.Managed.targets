@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <WindowsMetadataReference Include="$(DynamicXamlWinMDPath)" Implementation="$(DynamicXamlWinMDImplementationDllName)" />
+    <SDKReference Include="Microsoft.VCLibs.Desktop, Version=14.0" />
   </ItemGroup>
 
   <Target Name="DynamicXamlWarnNoPlatform" BeforeTargets="BeforeBuild" Condition="'$(DynamicXamlPlatform)' == '' and '$(DynamicXamlWarnNoPlatform)' == 'true'">

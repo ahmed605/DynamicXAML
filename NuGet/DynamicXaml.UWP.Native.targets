@@ -11,6 +11,7 @@
       <Implementation>DynamicXaml.UWP.dll</Implementation>
     </Reference>
     <ReferenceCopyLocalPaths Include="$(MSBuildThisFileDirectory)..\..\runtimes\win-$(DynamicXamlPlatform)\native\DynamicXaml.UWP.dll" />
+    <SDKReference Include="Microsoft.VCLibs, Version=14.0" />
   </ItemGroup>
 
 </Project>
