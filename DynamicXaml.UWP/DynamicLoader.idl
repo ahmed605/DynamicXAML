@@ -1,3 +1,5 @@
+#include <Common.h>
+
 namespace DynamicXaml.UWP
 {
     static runtimeclass DynamicLoader
@@ -8,5 +10,7 @@ namespace DynamicXaml.UWP
 
             static void LoadPri(Windows.Storage.StorageFile priFile);
         }
+
+        #include <IDynamicLoaderStatics2.inl>
     }
 }

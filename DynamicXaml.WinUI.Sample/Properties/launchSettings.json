@@ -2,7 +2,7 @@
   "profiles": {
     "DynamicXaml.WinUI.Sample": {
       "commandName": "MsixPackage",
-      "nativeDebugging": false
+      "nativeDebugging": true
     }
   }
 }

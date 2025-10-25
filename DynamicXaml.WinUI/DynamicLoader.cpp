@@ -9,6 +9,8 @@
 
 #include <DynamicHelpers.h>
 
+#include <DynamicXamlMetadataProvider.h>
+
 namespace warc = winrt::Windows::ApplicationModel::Resources::Core;
 
 namespace winrt::DynamicXaml::WinUI::implementation
@@ -67,6 +69,8 @@ namespace winrt::DynamicXaml::WinUI::implementation
 
 		LoadPri(priFile.Path());
     }
+
+    #include <IDynamicLoaderStatics2.impl.cpp.inl>
 
     HRESULT WINAPI DynamicLoader::TryGetValueWithContextHook(void* pThis, HSTRING resource, void* pContext, void** ppCandidate)
     {

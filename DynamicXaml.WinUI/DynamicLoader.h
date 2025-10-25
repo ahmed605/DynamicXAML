@@ -1,6 +1,7 @@
 #pragma once
 
 #include "DynamicLoader.g.h"
+#include <Common.h>
 
 using namespace winrt;
 using namespace Microsoft::Windows::ApplicationModel::Resources;
@@ -26,6 +27,8 @@ namespace winrt::DynamicXaml::WinUI::implementation
         static void LoadPri(winrt::Windows::Storage::StorageFile const& priFile);
         static bool TryLoadPri(hstring const& priFilePath);
         static bool TryLoadPri(winrt::Windows::Storage::StorageFile const& priFile);
+
+        #include <IDynamicLoaderStatics2.impl.h.inl>
     };
 }
 

@@ -7,6 +7,8 @@
 #include <detours/detours.h>
 #include <DynamicHelpers.h>
 
+#include <DynamicXamlMetadataProvider.h>
+
 namespace winrt::DynamicXaml::UWP::implementation
 {
     bool DynamicLoader::s_initialized = false;
@@ -53,6 +55,8 @@ namespace winrt::DynamicXaml::UWP::implementation
             s_resourceMaps.emplace(resourceMap, filesResourceMap);
         }
     }
+
+    #include <IDynamicLoaderStatics2.Impl.cpp.inl>
 
     HRESULT WINAPI DynamicLoader::LoadComponentWithResourceLocationHook(void* pThis, IInspectable* pComponent, void* resourceLocator, ComponentResourceLocation componentResourceLocation)
     {

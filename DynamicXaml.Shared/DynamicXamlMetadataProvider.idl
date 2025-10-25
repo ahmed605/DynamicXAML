@@ -1,0 +1,9 @@
+#include "Common.h"
+
+namespace DYNAMIC_XAML_NAMESPACE_MIDL.DynamicXaml_MetadataProvider
+{
+    runtimeclass DynamicXamlMetadataProvider : [default] XAML_NAMESPACE_MIDL.Markup.IXamlMetadataProvider
+    {
+        DynamicXamlMetadataProvider();
+    };
+}

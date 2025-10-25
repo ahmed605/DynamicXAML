@@ -1,22 +1,24 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-	<PropertyGroup>
-		<TargetFramework>net9.0-windows10.0.26100.0</TargetFramework>
-		<TargetPlatformMinVersion>10.0.15063.0</TargetPlatformMinVersion>
-		<ImplicitUsings>enable</ImplicitUsings>
-		<Nullable>enable</Nullable>
-	</PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net9.0-windows10.0.26100.0</TargetFramework>
+        <TargetPlatformMinVersion>10.0.15063.0</TargetPlatformMinVersion>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <UseUwp>true</UseUwp>
+        <UseUwpTools>false</UseUwpTools>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
 
-	<PropertyGroup>
-		<CsWinRTIncludes>DynamicXaml</CsWinRTIncludes>
-	</PropertyGroup>
+    <PropertyGroup>
+        <CsWinRTIncludes>DynamicXaml</CsWinRTIncludes>
+    </PropertyGroup>
 
-	<ItemGroup>
-		<PackageReference Include="Microsoft.Windows.CsWinRT" Version="2.2.0" />
-	</ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Microsoft.Windows.CsWinRT" Version="2.2.0" />
+    </ItemGroup>
 
-	<ItemGroup>
-		<ProjectReference Include="..\DynamicXaml.UWP\DynamicXaml.UWP.vcxproj" />
-	</ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\DynamicXaml.UWP\DynamicXaml.UWP.vcxproj" />
+    </ItemGroup>
 
 </Project>

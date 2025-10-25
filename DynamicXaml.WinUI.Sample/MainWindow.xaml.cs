@@ -2,7 +2,10 @@
 
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Markup;
 using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
@@ -31,7 +34,7 @@ namespace DynamicXaml.WinUI.Sample
         {
             FileOpenPicker picker = new()
             {
-                FileTypeFilter = { ".dll", ".pri" },
+                FileTypeFilter = { ".dll", ".pri", ".winmd" },
                 CommitButtonText = "Load"
             };
 
@@ -39,26 +42,53 @@ namespace DynamicXaml.WinUI.Sample
 
         Pick:
             var result = await picker.PickMultipleFilesAsync();
-            if (result is { Count: 2 } files)
+            if (result is { Count: >= 2 } files)
             {
                 var pri = files.FirstOrDefault(f => f.FileType == ".pri");
                 var dll = files.FirstOrDefault(f => f.FileType == ".dll");
+                var winmd = files.FirstOrDefault(f => f.FileType == ".winmd");
 
                 if (pri is not null && dll is not null)
                 {
+                    var appdata = ApplicationData.Current.LocalFolder;
+
+                    nint pDllGetActivationFactory = 0;
+                    dll = await dll.CopyAsync(appdata, dll.Name, NameCollisionOption.ReplaceExisting);
+                    bool isNative = NativeLibrary.TryLoad(dll.Path, out nint handle) && NativeLibrary.TryGetExport(handle, "DllGetActivationFactory", out pDllGetActivationFactory);
+
                     var name = $"{dll.Name[0..^4]}.DynamicPage";
 
                     var box = new TextBox
                     {
                         Text = name,
                         PlaceholderText = "UIElement fully qualified class name (e.g. MyLibrary.Controls.MyPage)",
-                        Margin = new(15)
+                        Margin = new(15, 15, 15, 10),
+                        HorizontalAlignment = HorizontalAlignment.Stretch
+                    };
+
+                    var checkBox = new CheckBox
+                    {
+                        Content = "Use XamlReader (needs WinMD in case of native dlls)",
+                        Margin = new(15, 0, 15, 15),
+                        IsChecked = false,
+                        IsEnabled = !isNative || winmd is not null,
+                        HorizontalAlignment = HorizontalAlignment.Left
+                    };
+
+                    var stack = new StackPanel()
+                    {
+                        Orientation = Orientation.Vertical,
+                        Children =
+                        {
+                            box,
+                            checkBox
+                        }
                     };
 
                     var dialog = new ContentDialog
                     {
                         Title = "Enter UIElement fully qualified class name to load",
-                        Content = box,
+                        Content = stack,
                         PrimaryButtonText = "Load",
                         IsPrimaryButtonEnabled = true,
                         IsSecondaryButtonEnabled = false,
@@ -77,36 +107,115 @@ namespace DynamicXaml.WinUI.Sample
                     if (await dialog.ShowAsync() == ContentDialogResult.Primary)
                     {
                         name = box.Text;
-                        var appdata = ApplicationData.Current.LocalFolder;
                         pri = await pri.CopyAsync(appdata, pri.Name, NameCollisionOption.ReplaceExisting);
-                        dll = await dll.CopyAsync(appdata, dll.Name, NameCollisionOption.ReplaceExisting);
+                        winmd = winmd is not null ? await winmd.CopyAsync(appdata, winmd.Name, NameCollisionOption.ReplaceExisting) : null;
 
                         DynamicLoader.LoadPri(pri);
 
                         UIElement element = null;
-                        if (NativeLibrary.TryLoad(dll.Path, out nint handle) && NativeLibrary.TryGetExport(handle, "DllGetActivationFactory", out nint pDllGetActivationFactory))
+                        bool useXamlReader = checkBox.IsChecked is true;
+
+                        IReadOnlyList<string> providerTypeNames = null;
+                        List<IXamlMetadataProvider> providers = null;
+
+                        if (useXamlReader)
+                        {
+                            providerTypeNames = isNative ?
+                                (winmd is not null ? await XamlMetadataProviderHelper.GetProviderTypeNamesFromAssemblyAsync(winmd) : null)
+                                : await XamlMetadataProviderHelper.GetProviderTypeNamesFromAssemblyAsync(dll);
+
+                            useXamlReader = providerTypeNames is not null && providerTypeNames.Count > 0;
+                        }
+
+                        if (isNative)
                         {
                             unsafe
                             {
                                 var DllGetActivationFactory = (delegate* unmanaged[Stdcall]<void*, void**, int>)pDllGetActivationFactory;
 
-                                void* factoryPtr = default;
-                                if (DllGetActivationFactory((void*)MarshalString.FromManaged(name), &factoryPtr) >= 0)
+                                if (useXamlReader)
                                 {
-                                    void* obj = default;
-                                    var vtftbl = *(void***)factoryPtr;
-                                    var ActivateInstance = (delegate* unmanaged[Stdcall]<void*, void**, int>)vtftbl[6];
+                                    providers = new();
+                                    foreach (var providerTypeName in providerTypeNames)
+                                    {
+                                        void* factoryPtr = default;
+                                        if (DllGetActivationFactory((void*)MarshalString.FromManaged(providerTypeName), &factoryPtr) >= 0)
+                                        {
+                                            void* obj = default;
+                                            var vtftbl = *(void***)factoryPtr;
+                                            var ActivateInstance = (delegate* unmanaged[Stdcall]<void*, void**, int>)vtftbl[6];
 
-                                    if (ActivateInstance(factoryPtr, &obj) >= 0)
-                                        element = UIElement.FromAbi((nint)obj);
+                                            if (ActivateInstance(factoryPtr, &obj) >= 0)
+                                            {
+                                                Marshal.ThrowExceptionForHR(Marshal.QueryInterface((nint)obj, typeof(IXamlMetadataProvider).GUID, out nint pProvider));
+                                                providers.Add(MarshalInspectable<IXamlMetadataProvider>.FromAbi(pProvider));
+                                                Marshal.Release((nint)factoryPtr);
+                                                Marshal.Release(pProvider);
+                                                Marshal.Release((nint)obj);
+                                            }
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    void* factoryPtr = default;
+                                    if (DllGetActivationFactory((void*)MarshalString.FromManaged(name), &factoryPtr) >= 0)
+                                    {
+                                        void* obj = default;
+                                        var vtftbl = *(void***)factoryPtr;
+                                        var ActivateInstance = (delegate* unmanaged[Stdcall]<void*, void**, int>)vtftbl[6];
+
+                                        if (ActivateInstance(factoryPtr, &obj) >= 0)
+                                        {
+                                            element = UIElement.FromAbi((nint)obj);
+                                            Marshal.Release((nint)factoryPtr);
+                                            Marshal.Release((nint)obj);
+                                        }
+                                    }
                                 }
                             }
                         }
                         else
                         {
                             var asm = Assembly.LoadFile(dll.Path);
-                            var type = asm.GetType(name, true, false);
-                            element = (UIElement)Activator.CreateInstance(type);
+
+                            if (useXamlReader)
+                            {
+                                providers = new();
+                                foreach (var providerTypeName in providerTypeNames)
+                                {
+                                    var providerType = asm.GetType(providerTypeName, true, false);
+                                    var provider = (IXamlMetadataProvider)Activator.CreateInstance(providerType);
+                                    providers.Add(provider);
+                                }
+                            }
+                            else
+                            {
+                                var type = asm.GetType(name, true, false);
+                                element = (UIElement)Activator.CreateInstance(type);
+                            }
+                        }
+
+                        if (useXamlReader && providers is not null)
+                        {
+                            foreach (var provider in providers)
+                            {
+                                _ = DynamicLoader.RegisterXamlMetadataProvider(provider);
+                            }
+
+                            var shortName = name.Split('.').Last();
+                            var namespaceName = name[0..^(shortName.Length + 1)];
+
+                            var xaml =
+                            $@"
+                                <Page xmlns='http://schemas.microsoft.com/winfx/2006/xaml/presentation'
+                                      xmlns:x='http://schemas.microsoft.com/winfx/2006/xaml'
+                                      xmlns:lib='using:{namespaceName}'>
+                                    <lib:{shortName}/>
+                                </Page>
+                            ";
+
+                            element = (UIElement)XamlReader.Load(xaml);
                         }
 
                         if (element is not null)

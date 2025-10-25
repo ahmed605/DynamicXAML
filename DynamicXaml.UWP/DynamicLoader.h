@@ -1,6 +1,7 @@
 #pragma once
 
 #include "DynamicLoader.g.h"
+#include <Common.h>
 
 #include <mrm_private.h>
 
@@ -34,6 +35,8 @@ namespace winrt::DynamicXaml::UWP::implementation
         static bool EnableUnsafeHooks();
         static void EnableUnsafeHooks(bool value);
         static void LoadPri(winrt::Windows::Storage::StorageFile const& priFile);
+
+        #include <IDynamicLoaderStatics2.Impl.h.inl>
     };
 }
 

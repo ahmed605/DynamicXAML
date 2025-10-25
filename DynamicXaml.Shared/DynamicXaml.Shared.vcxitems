@@ -14,7 +14,23 @@
     <ProjectCapability Include="SourceItemsFromImports" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Common.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)DynamicHelpers.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)DynamicXamlMetadataProvider.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)IDynamicLoaderStatics2.Impl.h.inl" />
     <ClInclude Include="$(MSBuildThisFileDirectory)mrm_private.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)XamlMetadataProviderHelper.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Midl Include="$(MSBuildThisFileDirectory)DynamicXamlMetadataProvider.idl" />
+    <Midl Include="$(MSBuildThisFileDirectory)XamlMetadataProviderHelper.idl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)DynamicXamlMetadataProvider.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)XamlMetadataProviderHelper.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)IDynamicLoaderStatics2.Impl.cpp.inl" />
+    <None Include="$(MSBuildThisFileDirectory)IDynamicLoaderStatics2.inl" />
   </ItemGroup>
 </Project>

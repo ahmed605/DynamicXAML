@@ -1,3 +1,5 @@
+#include <Common.h>
+
 namespace DynamicXaml.WinUI
 {
     static runtimeclass DynamicLoader
@@ -14,5 +16,7 @@ namespace DynamicXaml.WinUI
             [method_name("TryLoadPriWithStorageFile")]
             static Boolean TryLoadPri(Windows.Storage.StorageFile priFile);
         }
+
+        #include <IDynamicLoaderStatics2.inl>
     }
 }

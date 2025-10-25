@@ -114,15 +114,27 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug'">
     <ClCompile>
-      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>DYNAMIC_XAML_WINUI;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">stdcpp20</LanguageStandard>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">stdcpp20</LanguageStandard>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">stdcpp20</LanguageStandard>
     </ClCompile>
+    <Midl>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">DYNAMIC_XAML_WINUI;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">..\DynamicXaml.Shared;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </Midl>
+    <Midl>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">DYNAMIC_XAML_WINUI;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\DynamicXaml.Shared;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </Midl>
+    <Midl>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">DYNAMIC_XAML_WINUI;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\DynamicXaml.Shared;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </Midl>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Release'">
     <ClCompile>
-      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>DYNAMIC_XAML_WINUI;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">stdcpp20</LanguageStandard>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">stdcpp20</LanguageStandard>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release|x64'">stdcpp20</LanguageStandard>
@@ -131,6 +143,18 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
+    <Midl>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">DYNAMIC_XAML_WINUI;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">..\DynamicXaml.Shared;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </Midl>
+    <Midl>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">DYNAMIC_XAML_WINUI;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\DynamicXaml.Shared;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </Midl>
+    <Midl>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">DYNAMIC_XAML_WINUI;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\DynamicXaml.Shared;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </Midl>
   </ItemDefinitionGroup>
   <ItemGroup>
     <Midl Include="DynamicLoader.idl">
@@ -155,6 +179,11 @@
     <None Include="DynamicXaml.WinUI.def" />
     <None Include="packages.config" />
     <None Include="vcpkg.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Update="C:\Users\Ahmed\source\repos\DynamicXAML\DynamicXaml.Shared\IDynamicLoaderStatics2.Impl.h.inl">
+      <FileType>Document</FileType>
+    </ClInclude>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
