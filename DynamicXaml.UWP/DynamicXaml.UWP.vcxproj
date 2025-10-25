@@ -215,13 +215,13 @@
     <None Include="PropertySheet.props" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Update="C:\Users\Ahmed\source\repos\DynamicXAML\DynamicXaml.Shared\DynamicHelpers.h">
+    <ClInclude Update="..\DynamicXaml.Shared\DynamicHelpers.h">
       <FileType>Document</FileType>
     </ClInclude>
-    <ClInclude Update="C:\Users\Ahmed\source\repos\DynamicXAML\DynamicXaml.Shared\DynamicHelpersh">
+    <ClInclude Update="..\DynamicXaml.Shared\DynamicHelpers.h">
       <FileType>Document</FileType>
     </ClInclude>
-    <ClInclude Update="C:\Users\Ahmed\source\repos\DynamicXAML\DynamicXaml.Shared\IDynamicLoaderStatics2.Impl.h.inl">
+    <ClInclude Update="..\DynamicXaml.Shared\IDynamicLoaderStatics2.Impl.h.inl">
       <FileType>Document</FileType>
     </ClInclude>
   </ItemGroup>

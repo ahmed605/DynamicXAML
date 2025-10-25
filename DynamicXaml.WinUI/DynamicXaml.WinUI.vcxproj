@@ -181,7 +181,7 @@
     <None Include="vcpkg.json" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Update="C:\Users\Ahmed\source\repos\DynamicXAML\DynamicXaml.Shared\IDynamicLoaderStatics2.Impl.h.inl">
+    <ClInclude Update="..\DynamicXaml.Shared\IDynamicLoaderStatics2.Impl.h.inl">
       <FileType>Document</FileType>
     </ClInclude>
   </ItemGroup>
