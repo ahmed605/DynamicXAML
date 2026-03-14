@@ -2,7 +2,7 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
   <PropertyGroup>
-    <DynamicXamlWinMDPath>$(MSBuildThisFileDirectory)..\..\lib\uap10.0\DynamicXaml.UWP.winmd</DynamicXamlWinMDPath>
+    <DynamicXamlWinMDPath>$(MSBuildThisFileDirectory)..\..\lib\native\DynamicXaml.UWP.winmd</DynamicXamlWinMDPath>
     <DynamicXamlWinMDImplementationDllName>DynamicXaml.UWP.dll</DynamicXamlWinMDImplementationDllName>
   </PropertyGroup>
 
