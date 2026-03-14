@@ -7,7 +7,7 @@
         <UseUwp>true</UseUwp>
         <UseUwpTools>false</UseUwpTools>
         <Nullable>enable</Nullable>
-		<ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
+        <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
     </PropertyGroup>
 
     <PropertyGroup>
