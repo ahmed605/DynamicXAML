@@ -18,6 +18,7 @@ namespace winrt::DYNAMIC_XAML_NAMESPACE::DynamicXaml_MetadataProvider::implement
         static std::unordered_map<uint16_t, IXamlMetadataProvider> s_providers;
         static uint16_t s_nextToken;
         static std::mutex s_mutex;
+        static thread_local bool s_isInsideCall;
 
     public:
         DynamicXamlMetadataProvider() = default;
