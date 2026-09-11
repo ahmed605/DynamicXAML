@@ -5,5 +5,10 @@ namespace DYNAMIC_XAML_NAMESPACE_MIDL.DynamicXaml_MetadataProvider
     runtimeclass DynamicXamlMetadataProvider : [default] XAML_NAMESPACE_MIDL.Markup.IXamlMetadataProvider
     {
         DynamicXamlMetadataProvider();
+
+        [interface_name("IDynamicXamlMetadataProvider", E40AF3FA-05FE-4350-88B7-4C96BDAB9E66)]
+        {
+
+        }
     };
 }
